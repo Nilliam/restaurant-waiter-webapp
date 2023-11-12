@@ -6,17 +6,20 @@ import { Route, Routes } from "react-router-dom";
 import Tabs from "./scenes/Tabs";
 import Categories from "./scenes/Categories";
 import Products from "./scenes/Products";
+import { CartProvider } from "./context/CartContext";
+import Cart from "./scenes/Cart/Cart";
 
 function App() {
   const [theme, colorMode] = useMode();
 
   return (
+    <CartProvider>
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
           {/* <SideBar /> */}
-
+          <Cart />
           <main className="content">
             <TopBar />
             <Routes>
@@ -28,6 +31,7 @@ function App() {
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
+    </CartProvider>
   );
 }
 

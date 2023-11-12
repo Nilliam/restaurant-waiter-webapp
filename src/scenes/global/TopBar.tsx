@@ -5,13 +5,16 @@ import { InputBase } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useCart } from "../../context/CartContext";
+
 
 const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  const cart = useCart();
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -34,7 +37,7 @@ const TopBar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={cart.toggleCart}>
           <ShoppingCart />
         </IconButton>
       </Box>
