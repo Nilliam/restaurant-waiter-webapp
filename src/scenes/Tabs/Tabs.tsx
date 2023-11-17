@@ -1,23 +1,26 @@
-import {
-  Box,
-  Button,
-  CardContent,
-  Grid,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, CardContent, Grid, useTheme } from "@mui/material";
 import Card from "@mui/material/Card";
 import { tokens } from "../../theme";
 import { ReceiptLongRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Tabs = () => {
-  var things = ["102", "121", "132", "233", "323"];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [tabs, setTabs] = useState<any[]>([]);
+  const url = import.meta.env.VITE_APP_URL;
+
+  useEffect(() => {
+    fetch(`${url}/tabs`)
+      .then((response) => response.json())
+      .then((data) => setTabs(data));
+  }, []);
+
   return (
     <Box p={2}>
       <Grid container spacing={2}>
-        {[...Array(20)].map((_, index) => (
+        {tabs.map((tab, index) => (
           <Grid item xs={6} sm={4} md={4} lg={3} xl={2} key={index}>
             <Card
               sx={{
@@ -36,7 +39,7 @@ const Tabs = () => {
                 <ReceiptLongRounded sx={{ position: "left", top: 0 }} />
 
                 <CardContent sx={{ textAlign: "center" }}>
-                  {things[Math.floor(Math.random() * things.length)]}
+                  {tab.code}
                 </CardContent>
               </Button>
             </Card>
