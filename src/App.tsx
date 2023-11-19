@@ -25,7 +25,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Tabs/>} />
               <Route path="/categories" element={<Categories/>} />
-              <Route path="/products" element={<Products/>} />
+              <Route path="/categories/:id" element={<Categories/>} />
+              <Route path="/products/:categoryId" element={<Products/>} />
             </Routes>
           </main>
         </div>
