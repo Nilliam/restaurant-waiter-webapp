@@ -40,7 +40,7 @@ const Products = () => {
       </Box>
       <Box
         sx={{
-          position: "sticky",
+          position: "fixed",
           bottom: 0,
           width: "100%",
           backgroundColor: colors.grey[900],
