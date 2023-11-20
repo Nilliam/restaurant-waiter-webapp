@@ -1,27 +1,17 @@
 import { Add, FastfoodOutlined, Remove } from "@mui/icons-material";
 import { Card, IconButton, Stack, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { useState } from "react";
 
-const Product = () => {
+const Product = ({ item, itemAdd, itemRemove }: any) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [quantity, setQuantity] = useState(0);
-
-  const add = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const remove = () => {
-    if (quantity === 0) return;
-    setQuantity(quantity - 1);
-  };
 
   return (
     <Card
       sx={{
         height: 100,
-        backgroundColor: quantity > 0 ? colors.blueAccent[900] : colors.grey[900],
+        backgroundColor:
+          item.quantity > 0 ? colors.blueAccent[900] : colors.grey[900],
         color: colors.grey[100],
         fontSize: "10px",
         fontWeight: "bold",
@@ -36,11 +26,9 @@ const Product = () => {
         <FastfoodOutlined />{" "}
       </div>
       <div style={{ flex: 6 }}>
-        <div>Product Code: ABC123</div>
-        <div>
-          Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </div>
-        <div>Price: $9.99</div>
+        <div>{item.product.id}</div>
+        <div>{item.product.name}</div>
+        <div>Price ${item.product.price}</div>
 
         <div
           style={{
@@ -57,8 +45,14 @@ const Product = () => {
           >
             <IconButton
               size="small"
-              sx={{ backgroundColor: "red", color: "white" }}
-              onClick={remove}
+              sx={{
+                backgroundColor: "#FF0800",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#CD5C5C",
+                },
+              }}
+              onClick={() => itemRemove(item)}
             >
               <Remove />
             </IconButton>
@@ -69,12 +63,18 @@ const Product = () => {
                 alignItems: "center",
               }}
             >
-              {quantity}
+              {item.quantity}
             </div>
             <IconButton
               size="small"
-              sx={{ backgroundColor: "green", color: "white" }}
-              onClick={add}
+              sx={{
+                backgroundColor: "green",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#8A9A5B",
+                },
+              }}
+              onClick={() => itemAdd(item)}
             >
               <Add />
             </IconButton>

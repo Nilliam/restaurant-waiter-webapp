@@ -1,39 +1,56 @@
-import {
-  Box,
-  Button,
-  CardContent,
-  Grid,
-  IconButton,
-  Stack,
-  useTheme,
-} from "@mui/material";
-import Card from "@mui/material/Card";
+import { Box, Button, Grid, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { Add, FastfoodOutlined, Remove } from "@mui/icons-material";
 import Product from "./Product";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useCart } from "../../context/CartContext";
 
 const Products = () => {
-  var things = [
-    "Burger",
-    "Fries",
-    "Ice Cream",
-    "Pizza",
-    "Pasta",
-    "Salad",
-    "Soup",
-    "Noodles",
-    "Rice",
-  ];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [products, setProducts] = useState<any[]>([]);
+  const [items, setItens] = useState<any[]>([]);
+  const url = import.meta.env.VITE_APP_URL;
+  const { categoryId } = useParams();
+  const cart = useCart();
+
+  useEffect(() => {
+    fetch(`${url}/products/${categoryId}`)
+      .then((response) => response.json())
+      .then((data) => setProducts(data));
+  }, [categoryId]);
+
+  useEffect(() => {
+    setItens([...products.map((product) => ({ quantity: 0, product }))]);
+  }, [products]);
+
+  const itemAdd = (item: any) => {
+    const updatedItems = items.map((currentItem) => {
+      if (currentItem === item) {
+        return { ...currentItem, quantity: currentItem.quantity + 1 };
+      }
+      return currentItem;
+    });
+    setItens(updatedItems);
+  };
+
+  const itemRemove = (item: any) => {
+    const updatedItems = items.map((currentItem) => {
+      if (currentItem === item && currentItem.quantity > 0) {
+        return { ...currentItem, quantity: currentItem.quantity - 1 };
+      }
+      return currentItem;
+    });
+    setItens(updatedItems);
+  };
+
   return (
     <>
       <Box p={2}>
         <Grid container spacing={2}>
-          {[...Array(20)].map((_, index) => (
+          {items.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <Product />
+              <Product item={item} itemAdd={itemAdd} itemRemove={itemRemove} />
             </Grid>
           ))}
         </Grid>
@@ -68,6 +85,9 @@ const Products = () => {
           sx={{ ml: 1 }}
           component={Link}
           to="/categories"
+          onClick={() =>
+            items.forEach((item) => item.quantity && cart.addToCart(item))
+          }
         >
           Add
         </Button>

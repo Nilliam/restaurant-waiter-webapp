@@ -14,24 +14,24 @@ function App() {
 
   return (
     <CartProvider>
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          {/* <SideBar /> */}
-          <Cart />
-          <main className="content">
-            <TopBar />
-            <Routes>
-              <Route path="/" element={<Tabs/>} />
-              <Route path="/categories" element={<Categories/>} />
-              <Route path="/categories/:id" element={<Categories/>} />
-              <Route path="/products/:categoryId" element={<Products/>} />
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            {/* <SideBar /> */}
+            <Cart />
+            <main className="content">
+              <TopBar />
+              <Routes>
+                <Route path="/" element={<Tabs />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/categories/:id" element={<Categories />} />
+                <Route path="/products/:categoryId" element={<Products />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </CartProvider>
   );
 }
