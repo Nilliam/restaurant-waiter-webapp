@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, Badge, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import { InputBase } from "@mui/material";
@@ -38,7 +38,9 @@ const TopBar = () => {
           )}
         </IconButton>
         <IconButton onClick={cart.toggleCart}>
-          <ShoppingCart />
+          <Badge badgeContent={cart.cartItems.length} color="error">
+            <ShoppingCart />
+          </Badge>
         </IconButton>
       </Box>
     </Box>
