@@ -29,33 +29,7 @@ const Cart = () => {
     p: 4,
   };
 
-  const itens = [
-    {
-      id: 1,
-      name: "Cheeseburger",
-      price: 10.99,
-    },
-    {
-      id: 2,
-      name: "Pizza",
-      price: 15.99,
-    },
-    {
-      id: 3,
-      name: "Fried Chicken",
-      price: 12.99,
-    },
-    {
-      id: 4,
-      name: "Spaghetti",
-      price: 9.99,
-    },
-    {
-      id: 5,
-      name: "Taco Salad",
-      price: 8.99,
-    },
-  ];
+  if (!cart.cartItems.length) return null;
 
   return (
     <>
@@ -81,14 +55,20 @@ const Cart = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Your Order
           </Typography>
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Typography>Product</Typography>
+            <Typography>Quantity Price Total</Typography>
+          </Box>
           <Box sx={{ mt: 2 }}>
-            {itens.map((item) => (
+            {cart.cartItems.map((item) => (
               <Box
                 key={item.id}
                 sx={{ display: "flex", justifyContent: "space-between" }}
               >
-                <Typography>{item.name}</Typography>
-                <Typography>{item.price}</Typography>
+                <Typography>{`${item.product.id} - ${item.product.name}`}</Typography>
+                <Typography>{item.quantity} x {item.product.price} <b>{item.quantity * item.product.price}</b></Typography>
               </Box>
             ))}
           </Box>
@@ -101,7 +81,13 @@ const Cart = () => {
               borderTop: "1px solid",
             }}
           >
-            <Typography>Total {150}</Typography>
+            <Typography>
+              Total{" "}
+              {cart.cartItems.reduce(
+                (prev, item) => prev + item.quantity * item.product.price,
+                0
+              )}
+            </Typography>
           </Box>
 
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
