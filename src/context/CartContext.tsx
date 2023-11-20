@@ -1,10 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type CartContextType = {
   open: boolean;
   cartItems: any[];
   addToCart: (item: any) => void;
-  removeFromCart: (item: any) => void;
   toggleCart: () => void;
 };
 
@@ -12,7 +11,6 @@ const CartContext = createContext<CartContextType>({
   open: false,
   cartItems: [],
   addToCart: () => {},
-  removeFromCart: () => {},
   toggleCart: () => { },
 });
 
@@ -26,18 +24,24 @@ export const CartProvider = ({ children }: any) => {
   const toggleCart = () => setOpen(!open);
 
   const addToCart = (item: any) => {
-    setCartItems((prevItems) => [...prevItems, item]);
+    setCartItems((prevItems) => {
+      const items = [...prevItems, item]
+      persistItems(items);
+      return items;
+    });
   };
 
-  const removeFromCart = (item: any) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((cartItem) => cartItem.id !== item.id)
-    );
+  useEffect(() => {
+    setCartItems(JSON.parse(localStorage.getItem("cartItems") || "[]"));
+  }, []);
+
+  const persistItems = (items: any) => {
+    localStorage.setItem("cartItems", JSON.stringify(items));
   };
 
   return (
     <CartContext.Provider
-      value={{ open, cartItems, addToCart, removeFromCart, toggleCart }}
+      value={{ open, cartItems, addToCart, toggleCart }}
     >
       {children}
     </CartContext.Provider>
