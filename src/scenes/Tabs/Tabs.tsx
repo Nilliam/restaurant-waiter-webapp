@@ -4,12 +4,14 @@ import { tokens } from "../../theme";
 import { ReceiptLongRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCart } from "../../context/CartContext";
 
 const Tabs = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [tabs, setTabs] = useState<any[]>([]);
   const url = import.meta.env.VITE_APP_URL;
+  const cart = useCart();
 
   useEffect(() => {
     fetch(`${url}/tabs`)
@@ -35,7 +37,12 @@ const Tabs = () => {
                 alignItems: "center",
               }}
             >
-              <Button sx={{ width: "100%", height: "100%" }} component={Link} to="/categories" >
+              <Button
+                sx={{ width: "100%", height: "100%" }}
+                component={Link}
+                to="/categories"
+                onClick={() => cart.updateTab(tab)}
+              >
                 <ReceiptLongRounded sx={{ position: "left", top: 0 }} />
 
                 <CardContent sx={{ textAlign: "center" }}>
