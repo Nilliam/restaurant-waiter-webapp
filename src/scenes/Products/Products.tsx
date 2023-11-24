@@ -1,4 +1,4 @@
-import { Box, Button, Grid, useTheme } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Product from "./Product";
 import { Link, useParams } from "react-router-dom";
@@ -78,6 +78,9 @@ const Products = () => {
         >
           Back
         </Button>
+        <Typography>
+          <strong>{cart.tab && cart.tab.code}</strong>
+        </Typography>
         <Button
           variant="contained"
           size="small"
