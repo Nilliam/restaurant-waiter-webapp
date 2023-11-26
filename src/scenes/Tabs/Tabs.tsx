@@ -2,22 +2,54 @@ import { Box, Button, CardContent, Grid, useTheme } from "@mui/material";
 import Card from "@mui/material/Card";
 import { tokens } from "../../theme";
 import { ReceiptLongRounded } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
+import TabWaiterLogin from "./TabWaiterLogin";
 
 const Tabs = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [tabs, setTabs] = useState<any[]>([]);
+  const [tab, setTab] = useState<any>();
+  const [waiterModalOpen, setWaiterModalOpen] = useState<boolean>(false);
   const url = import.meta.env.VITE_APP_URL;
   const cart = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${url}/tabs`)
       .then((response) => response.json())
       .then((data) => setTabs(data));
   }, []);
+
+  const login = (password: string, table: string) => {
+    fetch(`${url}/waiters/login`, {
+      method: "POST",
+      body: JSON.stringify({ password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to login");
+        }
+        return response.json();
+      })
+      .then((waiter: any) => {
+        if (table) {
+          tab.code = tab.code + " M " + table;
+        }
+        cart.updateTab(tab);
+        cart.updateWaiter(waiter);
+        setWaiterModalOpen(false);
+        navigate("/categories");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Box p={2}>
@@ -27,7 +59,9 @@ const Tabs = () => {
             <Card
               sx={{
                 height: 100,
-                backgroundColor: colors.blueAccent[800],
+                backgroundColor: tab.id
+                  ? colors.blueAccent[800]
+                  : colors.grey[900],
                 color: colors.grey[100],
                 fontSize: "14px",
                 fontWeight: "bold",
@@ -39,9 +73,10 @@ const Tabs = () => {
             >
               <Button
                 sx={{ width: "100%", height: "100%" }}
-                component={Link}
-                to="/categories"
-                onClick={() => cart.updateTab(tab)}
+                onClick={() => {
+                  setTab(tab);
+                  setWaiterModalOpen(true);
+                }}
               >
                 <ReceiptLongRounded sx={{ position: "left", top: 0 }} />
 
@@ -53,6 +88,11 @@ const Tabs = () => {
           </Grid>
         ))}
       </Grid>
+      <TabWaiterLogin
+        waiterModalOpen={waiterModalOpen}
+        setWaiterModalOpen={setWaiterModalOpen}
+        login={login}
+      />
     </Box>
   );
 };

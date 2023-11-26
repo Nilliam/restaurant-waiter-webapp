@@ -23,20 +23,20 @@ const TopBar = () => {
         sx={{ backgroundColor: colors.primary[400] }}
         borderRadius="3px"
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+        {/* <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
         <IconButton sx={{ p: 1 }}>
           <SearchOutlinedIcon />
-        </IconButton>
+        </IconButton> */}
       </Box>
 
       <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
+        {/* <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
-        </IconButton>
+        </IconButton> */}
         <IconButton onClick={cart.toggleCart}>
           <Badge badgeContent={cart.cartItems.length} color="error">
             <ShoppingCart />
