@@ -1,20 +1,17 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Modal,
-  Snackbar,
-  Typography,
-} from "@mui/material";
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import { useCart } from "../../context/CartContext";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Close } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useCart();
 
-  const [orderSent, setOrderSent] = useState(false);
+  useEffect(() => {
+    if (cart.open && !cart.cartItems.length) {
+      cart.toggleCart();
+    }
+  }, [cart.open]);
 
   const style = {
     position: "absolute" as "absolute",
@@ -39,7 +36,7 @@ const Cart = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} id="cart-body">
           <IconButton
             aria-label="close"
             sx={{
@@ -53,13 +50,10 @@ const Cart = () => {
             <Close />
           </IconButton>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your Order
+            Your Order <strong>{cart?.tab?.code}</strong>
           </Typography>
-          <Box
-            sx={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <Typography>Product</Typography>
-            <Typography>Quantity Price Total</Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography>Quantity Product</Typography>
           </Box>
           <Box sx={{ mt: 2 }}>
             {cart.cartItems.map((item) => (
@@ -67,8 +61,11 @@ const Cart = () => {
                 key={item.id}
                 sx={{ display: "flex", justifyContent: "space-between" }}
               >
-                <Typography>{`${item.product.id} - ${item.product.name}`}</Typography>
-                <Typography>{item.quantity} x {item.product.price} <b>{item.quantity * item.product.price}</b></Typography>
+                <Typography>
+                  <strong>{item.quantity} x </strong>
+                  {`${item.product.id} - ${item.product.name}`}
+                </Typography>
+                <Typography></Typography>
               </Box>
             ))}
           </Box>
@@ -78,26 +75,18 @@ const Cart = () => {
               mt: 2,
               display: "flex",
               justifyContent: "flex-end",
-              borderTop: "1px solid",
+              position: "absolute",
+              bottom: 10,
+              right: 10,
             }}
           >
-            <Typography>
-              Total{" "}
-              {cart.cartItems.reduce(
-                (prev, item) => prev + item.quantity * item.product.price,
-                0
-              )}
-            </Typography>
-          </Box>
-
-          <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
             <Button
               variant="contained"
               color="success"
               component={Link}
               to="/"
               onClick={() => {
-                setOrderSent(true);
+                cart.sendOrder();
                 cart.toggleCart();
               }}
             >
@@ -106,12 +95,6 @@ const Cart = () => {
           </Box>
         </Box>
       </Modal>
-      <Snackbar
-        open={orderSent}
-        autoHideDuration={2000}
-        message="Enviado!"
-        onClose={() => setOrderSent(false)}
-      />
     </>
   );
 };
