@@ -14,9 +14,9 @@ jobs:
     - name: Publish to Github Packages Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: intesisdev/waiter-app
+        name: nilliam/restaurant-waiter-webapp
         registry: docker.pkg.github.com
-        username: intesisdev
+        username: nilliam
         password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.production
         tags: latest
