@@ -20,5 +20,6 @@ jobs:
         name: nilliam/restaurant-waiter-webapp/waiter-webapp
         registry: https://ghcr.io
         username: ${{ secrets.GH_USERNAME }}
-        password: ${{ secrets.TOKEN }}
+        password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.production
+        tags: latest
