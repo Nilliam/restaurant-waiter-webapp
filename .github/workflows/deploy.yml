@@ -15,7 +15,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v4
       with:
         name: nilliam/restaurant-waiter-webapp/waiter-webapp
-        registry: docker.pkg.github.com
+        registry: https://ghcr.io
         username: ${{ secrets.GH_USERNAME }}
         password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.production
