@@ -1,18 +1,12 @@
 import { Box, IconButton, Badge, useTheme } from "@mui/material";
-import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
-import { InputBase } from "@mui/material";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useCart } from "../../context/CartContext";
+import { tokens } from "../../theme";
 
 
 const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
 
   const cart = useCart();
 
