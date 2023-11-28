@@ -1,17 +1,10 @@
 #build
-FROM node:20-alpine as build
-
-WORKDIR /usr/src/intesis
-
-ENV PATH /usr/src/intesis/node_modules/.bin:$PATH
-
-COPY package.json ./
-COPY package-lock.json ./
-
-RUN NODE_ENV=development npm i
-
-COPY . ./
-
+FROM node:lts-alpine as build-stage
+RUN mkdir -p /app
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
 RUN npm run build
 
 # production environment
