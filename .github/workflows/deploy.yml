@@ -14,9 +14,9 @@ jobs:
     - name: Publish to Github Packages Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: intesisdev/waiter-api
+        name: intesisdev/waiter-app
         registry: docker.pkg.github.com
-        username: ${{ secrets.GH_USERNAME }}
+        username: intesisdev
         password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.production
         tags: latest
