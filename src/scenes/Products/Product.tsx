@@ -28,7 +28,7 @@ const Product = ({ item, itemAdd, itemRemove }: any) => {
       <div style={{ flex: 6 }}>
         <div>{item.product.id}</div>
         <div>{item.product.name}</div>
-        <div>Price ${item.product.price}</div>
+        <div>Preço R${item.product.price}</div>
 
         <div
           style={{

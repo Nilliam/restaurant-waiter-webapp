@@ -71,8 +71,8 @@ const TabWaiterLogin = ({
               inputRef={textFieldRef}
               type="password"
               size="medium"
-              id="outlined-required"
-              label="Password"
+              id="password"
+              label="SENHA"
               required
               value={password}
               onKeyUp={(event) =>
@@ -94,7 +94,7 @@ const TabWaiterLogin = ({
               type="text"
               size="medium"
               id="table"
-              label="Table"
+              label="MESA"
               value={table}
               onKeyUp={(event) =>
                 event.key === "Enter" && login(password, table)

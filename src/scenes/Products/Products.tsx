@@ -76,7 +76,7 @@ const Products = () => {
           component={Link}
           to="/categories"
         >
-          Back
+          VOLTAR
         </Button>
         <Typography>
           <strong>{cart.tab && cart.tab.code}</strong>
@@ -92,7 +92,7 @@ const Products = () => {
             items.forEach((item) => item.quantity && cart.addToCart(item))
           }
         >
-          Add
+          ADICIONAR
         </Button>
       </Box>
     </>

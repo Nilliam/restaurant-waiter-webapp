@@ -53,7 +53,7 @@ export const CartProvider = ({ children }: any) => {
         setTab(undefined);
         localStorage.removeItem("cartItems");
         localStorage.removeItem("tab");
-        toast.success("Order sent successfully!");
+        toast.success("PEDIDO ENVIADO COM SUCESSO!");
       })
       .catch((error) => {
         console.log(error);

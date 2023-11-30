@@ -88,7 +88,7 @@ const Categories = () => {
           component={Link}
           to="/"
         >
-          Back
+          VOLTAR
         </Button>
         <Typography>
           <strong>{cart.tab && cart.tab.code}</strong>

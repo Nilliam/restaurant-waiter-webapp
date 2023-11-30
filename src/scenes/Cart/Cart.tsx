@@ -14,7 +14,7 @@ const Cart = () => {
   }, [cart.open]);
 
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -29,73 +29,71 @@ const Cart = () => {
   if (!cart.cartItems.length) return null;
 
   return (
-    <>
-      <Modal
-        open={cart.open}
-        onClose={cart.toggleCart}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} id="cart-body">
-          <IconButton
-            aria-label="close"
-            sx={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              color: "red",
-            }}
-            onClick={cart.toggleCart}
-          >
-            <Close />
-          </IconButton>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your Order <strong>{cart?.tab?.code}</strong>
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography>Quantity Product</Typography>
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            {cart.cartItems.map((item) => (
-              <Box
-                key={item.id}
-                sx={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <Typography>
-                  <strong>{item.quantity} x </strong>
-                  {`${item.product.id} - ${item.product.name}`}
-                </Typography>
-                <Typography></Typography>
-              </Box>
-            ))}
-          </Box>
-
-          <Box
-            sx={{
-              mt: 2,
-              display: "flex",
-              justifyContent: "flex-end",
-              position: "absolute",
-              bottom: 10,
-              right: 10,
-            }}
-          >
-            <Button
-              variant="contained"
-              color="success"
-              component={Link}
-              to="/"
-              onClick={() => {
-                cart.sendOrder();
-                cart.toggleCart();
-              }}
-            >
-              Send Order
-            </Button>
-          </Box>
+    <Modal
+      open={cart.open}
+      onClose={cart.toggleCart}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style} id="cart-body">
+        <IconButton
+          aria-label="close"
+          sx={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            color: "red",
+          }}
+          onClick={cart.toggleCart}
+        >
+          <Close />
+        </IconButton>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          COMANDA <strong>{cart?.tab?.code}</strong>
+        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography>QUANTIDADE PRODUTO</Typography>
         </Box>
-      </Modal>
-    </>
+        <Box sx={{ mt: 2 }}>
+          {cart.cartItems.map((item) => (
+            <Box
+              key={item.id}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Typography>
+                <strong>{item.quantity}x </strong>
+                {`${item.product.id} - ${item.product.name}`}
+              </Typography>
+              <Typography></Typography>
+            </Box>
+          ))}
+        </Box>
+
+        <Box
+          sx={{
+            mt: 2,
+            display: "flex",
+            justifyContent: "flex-end",
+            position: "absolute",
+            bottom: 10,
+            right: 10,
+          }}
+        >
+          <Button
+            variant="contained"
+            color="success"
+            component={Link}
+            to="/"
+            onClick={() => {
+              cart.sendOrder();
+              cart.toggleCart();
+            }}
+          >
+            ENVIAR PEDIDO
+          </Button>
+        </Box>
+      </Box>
+    </Modal>
   );
 };
 
