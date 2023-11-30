@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import TabWaiterLogin from "./TabWaiterLogin";
+import envUrl from "../../config";
 
 const Tabs = () => {
   const theme = useTheme();
@@ -13,18 +14,17 @@ const Tabs = () => {
   const [tabs, setTabs] = useState<any[]>([]);
   const [tab, setTab] = useState<any>();
   const [waiterModalOpen, setWaiterModalOpen] = useState<boolean>(false);
-  const url = import.meta.env.VITE_APP_URL;
   const cart = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${url}/tabs`)
+    fetch(`${envUrl()}/tabs`)
       .then((response) => response.json())
       .then((data) => setTabs(data));
   }, []);
 
   const login = (password: string, table: string) => {
-    fetch(`${url}/waiters/login`, {
+    fetch(`${envUrl()}/waiters/login`, {
       method: "POST",
       body: JSON.stringify({ password }),
       headers: {

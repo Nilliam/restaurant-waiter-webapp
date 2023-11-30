@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-const url = import.meta.env.VITE_APP_URL;
+import envUrl from "../config";
 
 type CartContextType = {
   open: boolean;
@@ -41,7 +41,7 @@ export const CartProvider = ({ children }: any) => {
   const sendOrder = () => {
     if (!tab || !waiter || !cartItems.length) return;
 
-    fetch(`${url}/tabs`, {
+    fetch(`${envUrl()}/tabs`, {
       method: "POST",
       body: JSON.stringify({ ...tab, waiterId: waiter?.id, items: cartItems }),
       headers: {

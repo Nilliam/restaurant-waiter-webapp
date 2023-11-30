@@ -13,17 +13,17 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import envUrl from "../../config";
 
 const Categories = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [categories, setCategories] = useState<any[]>([]);
-  const url = import.meta.env.VITE_APP_URL;
   const { id } = useParams();
   const cart = useCart();
 
   useEffect(() => {
-    fetch(`${url}/categories${id ? `/${id}` : ""}`)
+    fetch(`${envUrl()}/categories${id ? `/${id}` : ""}`)
       .then((response) => response.json())
       .then((data) => setCategories(data));
   }, [id]);

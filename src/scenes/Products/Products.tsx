@@ -4,18 +4,18 @@ import Product from "./Product";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
+import envUrl from "../../config";
 
 const Products = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [products, setProducts] = useState<any[]>([]);
   const [items, setItens] = useState<any[]>([]);
-  const url = import.meta.env.VITE_APP_URL;
   const { categoryId } = useParams();
   const cart = useCart();
 
   useEffect(() => {
-    fetch(`${url}/products/${categoryId}`)
+    fetch(`${envUrl()}/products/${categoryId}`)
       .then((response) => response.json())
       .then((data) => setProducts(data));
   }, [categoryId]);
