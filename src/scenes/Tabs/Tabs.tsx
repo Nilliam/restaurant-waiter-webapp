@@ -7,14 +7,17 @@ import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import TabWaiterLogin from "./TabWaiterLogin";
 import envUrl from "../../config";
+import { useFilter } from "../../context/FilterContext";
 
 const Tabs = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [tabs, setTabs] = useState<any[]>([]);
+  const [filteredTabs, setFilteredTabs] = useState<any[]>([]);
   const [tab, setTab] = useState<any>();
   const [waiterModalOpen, setWaiterModalOpen] = useState<boolean>(false);
   const cart = useCart();
+  const filter = useFilter();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +25,18 @@ const Tabs = () => {
       .then((response) => response.json())
       .then((data) => setTabs(data));
   }, []);
+
+  useEffect(() => {
+    if (!filter.filter) {
+      setFilteredTabs(tabs);
+      return;
+    }
+    setFilteredTabs(
+      tabs.filter((tab) =>
+        tab.code?.toLowerCase()?.includes(filter.filter.toLowerCase())
+      )
+    );
+  }, [tabs, filter.filter]);
 
   const login = (password: string, table: string) => {
     fetch(`${envUrl()}/waiters/login`, {
@@ -54,7 +69,7 @@ const Tabs = () => {
   return (
     <Box p={2}>
       <Grid container spacing={2}>
-        {tabs.map((tab, index) => (
+        {filteredTabs.map((tab, index) => (
           <Grid item xs={6} sm={4} md={4} lg={3} xl={2} key={index}>
             <Card
               sx={{
