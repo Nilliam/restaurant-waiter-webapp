@@ -17,6 +17,7 @@ const style = {
 const TabWaiterLogin = ({
   waiterModalOpen,
   setWaiterModalOpen,
+  tab,
   login,
 }: any) => {
   const [password, setPassword] = useState<string>();
@@ -75,33 +76,38 @@ const TabWaiterLogin = ({
               label="SENHA"
               required
               value={password}
-              onKeyUp={(event) =>
-                event.key === "Enter" && tableRef.current?.focus()
-              }
+              onKeyUp={(event) => {
+                if (event.key === "Enter") {
+                  if (!tab?.id) tableRef.current?.focus();
+                  if (tab?.id) login(password, table);
+                }
+              }}
               onChange={(event) => setPassword(event.target.value)}
             />
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              mt: 2,
-            }}
-          >
-            <TextField
-              inputRef={tableRef}
-              type="text"
-              size="medium"
-              id="table"
-              label="MESA"
-              value={table}
-              onKeyUp={(event) =>
-                event.key === "Enter" && login(password, table)
-              }
-              onChange={(event) => setTable(event.target.value)}
-            />
-          </Box>
+          {!tab?.id && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                mt: 2,
+              }}
+            >
+              <TextField
+                inputRef={tableRef}
+                type="text"
+                size="medium"
+                id="table"
+                label="MESA"
+                value={table}
+                onKeyUp={(event) =>
+                  event.key === "Enter" && login(password, table)
+                }
+                onChange={(event) => setTable(event.target.value)}
+              />
+            </Box>
+          )}
         </Box>
         <Box
           sx={{

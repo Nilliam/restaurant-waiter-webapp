@@ -106,6 +106,7 @@ const Tabs = () => {
       <TabWaiterLogin
         waiterModalOpen={waiterModalOpen}
         setWaiterModalOpen={setWaiterModalOpen}
+        tab={tab}
         login={login}
       />
     </Box>
