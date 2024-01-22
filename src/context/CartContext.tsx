@@ -11,6 +11,7 @@ type CartContextType = {
   updateTab: (tab: any) => void;
   sendOrder: () => void;
   updateWaiter: (waiter: any) => void;
+  clear: () => void;
 };
 
 const CartContext = createContext<CartContextType>({
@@ -22,6 +23,7 @@ const CartContext = createContext<CartContextType>({
   updateTab: () => {},
   sendOrder: () => {},
   updateWaiter: () => {},
+  clear: () => {},
 });
 
 export const useCart = () => useContext(CartContext);
@@ -38,6 +40,13 @@ export const CartProvider = ({ children }: any) => {
 
   const toggleCart = () => setOpen(!open);
 
+  const clear = () => {
+    setCartItems([]);
+    setTab(undefined);
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("tab");
+  };
+
   const sendOrder = () => {
     if (!tab || !waiter || !cartItems.length) return;
 
@@ -49,10 +58,7 @@ export const CartProvider = ({ children }: any) => {
       },
     })
       .then(() => {
-        setCartItems([]);
-        setTab(undefined);
-        localStorage.removeItem("cartItems");
-        localStorage.removeItem("tab");
+        clear();
         toast.success("PEDIDO ENVIADO COM SUCESSO!");
       })
       .catch((error) => {
@@ -94,6 +100,7 @@ export const CartProvider = ({ children }: any) => {
         updateTab,
         sendOrder,
         updateWaiter,
+        clear,
       }}
     >
       {children}

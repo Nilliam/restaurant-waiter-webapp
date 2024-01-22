@@ -81,6 +81,19 @@ const Cart = () => {
         >
           <Button
             variant="contained"
+            color="error"
+            component={Link}
+            to="/"
+            onClick={() => {
+              cart.clear();
+              cart.toggleCart();
+            }}
+          >
+            LIMPAR
+          </Button>
+          <Box sx={{ mr: 2 }} />
+          <Button
+            variant="contained"
             color="success"
             component={Link}
             to="/"
