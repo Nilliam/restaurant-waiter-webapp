@@ -2,7 +2,7 @@ import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -14,14 +14,21 @@ const style = {
   p: 4,
 };
 
+type TabWaiterLoginProps = {
+  waiterModalOpen: boolean;
+  setWaiterModalOpen: (open: boolean) => void;
+  tab: any;
+  login: (password: string, table?: string) => void;
+};
+
 const TabWaiterLogin = ({
   waiterModalOpen,
   setWaiterModalOpen,
   tab,
   login,
-}: any) => {
-  const [password, setPassword] = useState<string>();
-  const [table, setTable] = useState<string>();
+}: TabWaiterLoginProps) => {
+  const [password, setPassword] = useState<string>('');
+  const [table, setTable] = useState<string>('');
   const textFieldRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLInputElement>(null);
 
