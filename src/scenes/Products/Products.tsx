@@ -21,7 +21,13 @@ const Products = () => {
   }, [categoryId]);
 
   useEffect(() => {
-    setItens([...products.map((product) => ({ quantity: 0, product }))]);
+    setItens([
+      ...products.map((product) => ({
+        quantity: 0,
+        observations: "",
+        product,
+      })),
+    ]);
   }, [products]);
 
   const itemAdd = (item: any) => {
@@ -44,13 +50,28 @@ const Products = () => {
     setItens(updatedItems);
   };
 
+  const updateObservations = (item: any, observations: string) => {
+    const updatedItems = items.map((currentItem) => {
+      if (currentItem === item) {
+        return { ...currentItem, observations };
+      }
+      return currentItem;
+    });
+    setItens(updatedItems);
+  };
+
   return (
     <>
       <Box p={2}>
         <Grid container spacing={2}>
           {items.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <Product item={item} itemAdd={itemAdd} itemRemove={itemRemove} />
+              <Product
+                item={item}
+                itemAdd={itemAdd}
+                itemRemove={itemRemove}
+                updateObservations={updateObservations}
+              />
             </Grid>
           ))}
         </Grid>

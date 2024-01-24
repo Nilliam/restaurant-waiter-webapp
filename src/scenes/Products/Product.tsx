@@ -1,10 +1,24 @@
 import { Add, FastfoodOutlined, Remove } from "@mui/icons-material";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import { Card, IconButton, Stack, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
+import { useState } from "react";
 
-const Product = ({ item, itemAdd, itemRemove }: any) => {
+const Product = ({ item, itemAdd, itemRemove, updateObservations }: any) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [showTextArea, setShowTextArea] = useState(false);
+
+  const handleToggleTextArea = () => {
+    setShowTextArea(!showTextArea);
+  };
+
+  const handleObservationsChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    item: any
+  ) => {
+    updateObservations(item, event.target.value);
+  };
 
   return (
     <Card
@@ -27,7 +41,9 @@ const Product = ({ item, itemAdd, itemRemove }: any) => {
       </div>
       <div style={{ flex: 6 }}>
         <div>{item.product.id}</div>
-        <div>{item.product.name}</div>
+        <div>
+          {item.product.name + (!showTextArea ? " " + item.observations : "")}
+        </div>
         <div>Preço R${item.product.price}</div>
 
         <div
@@ -37,6 +53,17 @@ const Product = ({ item, itemAdd, itemRemove }: any) => {
             alignItems: "center",
           }}
         >
+          <IconButton size="small" onClick={handleToggleTextArea}>
+            <TextSnippetIcon />
+          </IconButton>
+          {showTextArea && (
+            <textarea
+              value={item.observations}
+              onChange={(e) => handleObservationsChange(e, item)}
+              placeholder="Observações"
+              style={{ width: "60%", height: "50px" }}
+            />
+          )}
           <div></div>
           <Stack
             direction="row"
