@@ -62,7 +62,7 @@ const Cart = () => {
             >
               <Typography>
                 <strong>{item.quantity}x </strong>
-                {`${item.product.id} - ${item.product.name}`}
+                {`${item.product.id} - ${item.product.name} ${item.observations}`}
               </Typography>
               <Typography></Typography>
             </Box>
