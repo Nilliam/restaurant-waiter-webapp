@@ -30,7 +30,7 @@ const Categories = () => {
 
   return (
     <>
-      <Box p={2}>
+      <Box p={2} pb={7}>
         <Grid container spacing={2}>
           {categories.map((category, index) => (
             <Grid item xs={6} sm={4} md={4} lg={3} xl={2} key={index}>
@@ -39,7 +39,7 @@ const Categories = () => {
                   height: 100,
                   backgroundColor: colors.grey[900],
                   color: colors.grey[100],
-                  fontSize: "14px",
+                  fontSize: "16px",
                   fontWeight: "bold",
                   display: "flex",
                   flexDirection: "column",

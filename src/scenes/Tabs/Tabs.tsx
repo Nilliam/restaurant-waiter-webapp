@@ -96,10 +96,10 @@ const Tabs = () => {
         <Grid item xs={6} sm={4} md={4} lg={3} xl={2} key={"0"}>
           <Card
             sx={{
-              height: 100,
+              height: 110,
               backgroundColor: colors.greenAccent[800],
               color: colors.grey[100],
-              fontSize: "14px",
+              fontSize: "16px",
               fontWeight: "bold",
               display: "flex",
               flexDirection: "column",
@@ -125,12 +125,12 @@ const Tabs = () => {
           <Grid item xs={6} sm={4} md={4} lg={3} xl={2} key={tab.code}>
             <Card
               sx={{
-                height: 100,
+                height: 110,
                 backgroundColor: tab.id
                   ? colors.blueAccent[800]
                   : colors.grey[900],
                 color: colors.grey[100],
-                fontSize: "14px",
+                fontSize: "16px",
                 fontWeight: "bold",
                 display: "flex",
                 flexDirection: "column",

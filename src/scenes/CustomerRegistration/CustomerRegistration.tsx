@@ -16,7 +16,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "70%",
-  height: "30%",
+  height: "50%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -51,10 +51,11 @@ const CustomerRegistration = ({
   }, [open]);
 
   const save = () => {
-    setSaving(true);
     if (!name || !phone) {
       return;
     }
+
+    setSaving(true);
 
     fetch(`${envUrl()}/customers`, {
       method: "POST",
@@ -94,7 +95,7 @@ const CustomerRegistration = ({
             top: 0,
             left: 0,
             width: "100%",
-            height: "10%",
+            height: "7%",
             bgcolor: "success.main",
             display: "flex",
             alignItems: "center",

@@ -23,11 +23,11 @@ const Product = ({ item, itemAdd, itemRemove, updateObservations }: any) => {
   return (
     <Card
       sx={{
-        height: 100,
+        height: 130,
         backgroundColor:
           item.quantity > 0 ? colors.blueAccent[900] : colors.grey[900],
         color: colors.grey[100],
-        fontSize: "10px",
+        fontSize: "16px",
         fontWeight: "bold",
         display: "flex",
         flexDirection: "row",

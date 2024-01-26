@@ -164,7 +164,7 @@ export const themeSettings = (mode: PaletteMode) => {
     },
     typography: {
       fontFamily: ["Source Sans 3", "sans-serif"].join(","),
-      fontSize: 12,
+      fontSize: 16,
       h1: {
         fontFamily: ["Source Sans 3", "sans-serif"].join(","),
         fontSize: 40,
@@ -187,7 +187,7 @@ export const themeSettings = (mode: PaletteMode) => {
       },
       h6: {
         fontFamily: ["Source Sans 3", "sans-serif"].join(","),
-        fontSize: 14,
+        fontSize: 16,
       },
     },
   };
