@@ -14,11 +14,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import envUrl from "../../config";
+import TabItems from "../TabItems";
 
 const Categories = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [categories, setCategories] = useState<any[]>([]);
+  const [itemsModalOpen, setItemsModalOpen] = useState<boolean>(false);
   const { id } = useParams();
   const cart = useCart();
 
@@ -90,10 +92,22 @@ const Categories = () => {
         >
           VOLTAR
         </Button>
+
+        <Button
+          variant="contained"
+          size="small"
+          color="success"
+          sx={{ ml: 1 }}
+          onClick={() => setItemsModalOpen(true)}
+        >
+          CONSUMO
+        </Button>
+
         <Typography>
           <strong>{cart.tab && cart.tab.code}</strong>
         </Typography>
       </Box>
+      <TabItems open={itemsModalOpen} setOpen={setItemsModalOpen} />
     </>
   );
 };
