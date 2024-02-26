@@ -24,10 +24,17 @@ const Tabs = () => {
   const filter = useFilter();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchTabs = () => {
     fetch(`${envUrl()}/tabs`)
       .then((response) => response.json())
       .then((data) => setTabs(data));
+  };
+
+  useEffect(() => {
+    fetchTabs();
+    setInterval(() => {
+      fetchTabs();
+    }, 10000);
   }, []);
 
   useEffect(() => {
@@ -35,11 +42,17 @@ const Tabs = () => {
       setFilteredTabs(tabs);
       return;
     }
-    setFilteredTabs(
-      tabs.filter((tab) =>
-        tab.code?.toLowerCase()?.includes(filter.filter.toLowerCase())
-      )
-    );
+
+    fetch(`${envUrl()}/tabs?customerName=${filter.filter}`)
+      .then((response) => response.json())
+      .then((data: any) => {
+        setFilteredTabs([
+          ...tabs.filter((tab) =>
+            tab.code?.toLowerCase()?.includes(filter.filter.toLowerCase())
+          ),
+          ...data,
+        ]);
+      });
   }, [tabs, filter.filter]);
 
   useEffect(() => {
