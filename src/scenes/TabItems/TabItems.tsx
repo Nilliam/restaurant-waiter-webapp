@@ -73,7 +73,9 @@ const TabItems = ({ open, setOpen }: TabItemsProps) => {
             <br />
             {tabItems?.map((item: any) => (
               <>
-                {`${item.quantity}x  ${item.product.name} ${item.observations}`}
+                {`${item.quantity}x  ${item.product.name} ${
+                  item.observations ?? ""
+                } R$ ${String(item.price.toFixed(2)).replace(".", ",")}`}
                 <br />
                 <strong style={{ fontSize: "12px" }}>
                   {(item.savingDate
@@ -89,6 +91,17 @@ const TabItems = ({ open, setOpen }: TabItemsProps) => {
             ))}
           </div>
         </Box>
+        <strong>
+          Total: R${" "}
+          {String(
+            tabItems
+              .reduce(
+                (acc: number, item: any) => acc + item.quantity * item.price,
+                0
+              )
+              .toFixed(2)
+          ).replace(".", ",")}
+        </strong>
       </Box>
     </Modal>
   );
