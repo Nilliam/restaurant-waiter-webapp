@@ -77,6 +77,11 @@ const TabItems = ({ open, setOpen }: TabItemsProps) => {
                   item.observations ?? ""
                 } R$ ${String(item.price.toFixed(2)).replace(".", ",")}`}
                 <br />
+                <div style={{ fontSize: "14px" }}>
+                  {`Total R$ ${String(
+                    (item.price * item.quantity).toFixed(2)
+                  ).replace(".", ",")}`}
+                </div>
                 <strong style={{ fontSize: "12px" }}>
                   {(item.savingDate
                     ? new Date(item.savingDate)
@@ -92,7 +97,7 @@ const TabItems = ({ open, setOpen }: TabItemsProps) => {
           </div>
         </Box>
         <strong>
-          Total: R${" "}
+          Consumo Total R${" "}
           {String(
             tabItems
               .reduce(
