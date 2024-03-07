@@ -73,7 +73,17 @@ const TabItems = ({ open, setOpen }: TabItemsProps) => {
             <br />
             {tabItems?.map((item: any) => (
               <>
-                {`${item.quantity}x  ${item.product.name}`}
+                {`${item.quantity}x  ${item.product.name} ${item.observations}`}
+                <br />
+                <strong style={{ fontSize: "12px" }}>
+                  {(item.savingDate
+                    ? new Date(item.savingDate)
+                        .toLocaleString("pt-BR")
+                        .replace(",", "")
+                    : "") +
+                    " " +
+                    item.waiterName}
+                </strong>
                 <br />
               </>
             ))}
