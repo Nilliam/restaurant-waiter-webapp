@@ -50,12 +50,34 @@ const CustomerRegistration = ({
     return () => clearTimeout(timer);
   }, [open]);
 
-  const save = () => {
+  const save = async () => {
     if (!name || !phone) {
       return;
     }
-
     setSaving(true);
+
+    try {
+      const customer = await fetch(`${envUrl()}/customers/${name}/${phone}`, {
+        method: "GET",
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("FAILED TO GET CUSTOMER");
+        }
+        return response.json();
+      });
+
+      if (customer) {
+        toast.error(
+          customer.phone === phone || customer.cellphone === phone
+            ? "TELEFONE JÁ CADASTRADO NO CLIENTE " + customer.name
+            : "NOME JÁ CADASTRADO!"
+        );
+        setSaving(false);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
     fetch(`${envUrl()}/customers`, {
       method: "POST",
